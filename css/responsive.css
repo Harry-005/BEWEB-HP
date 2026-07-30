@@ -1,0 +1,950 @@
+/* =====================================================================
+   BALAJI ENTERPRISES — RESPONSIVE STYLESHEET
+   Breakpoints: 1024px (tablet), 768px (small tablet), 480px (mobile)
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-preview__grid {
+    gap: 40px;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   SMALL TABLET / LARGE MOBILE  (<= 860px)
+   Navigation collapses into a slide-down mobile menu.
+   --------------------------------------------------------------------- */
+@media (max-width: 860px) {
+
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__nav {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: rgba(11, 13, 18, 0.98);
+    backdrop-filter: blur(10px);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-med);
+    border-bottom: 1px solid rgba(245, 246, 248, 0.08);
+  }
+
+  .navbar__nav.is-open {
+    max-height: 400px;
+  }
+
+  .navbar__link {
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  .navbar__link::after {
+    display: none;
+  }
+
+  .navbar__actions .btn--gold {
+    display: none; /* hidden on mobile nav bar to save space; still available in hero + footer */
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-preview__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview__media {
+    order: -1;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: auto;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .container {
+    padding: 0 18px;
+  }
+
+  .navbar__brand-text {
+    display: none; /* logo mark only on very small screens */
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__headline {
+    font-size: 2rem;
+  }
+
+  .highlights {
+    padding: 70px 0;
+  }
+
+  .highlights__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview,
+  .highlights {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .footer__bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+/* =====================================================================
+   BALAJI ENTERPRISES — RESPONSIVE STYLESHEET
+   Breakpoints: 1024px (tablet), 768px (small tablet), 480px (mobile)
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-preview__grid {
+    gap: 40px;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   SMALL TABLET / LARGE MOBILE  (<= 860px)
+   Navigation collapses into a slide-down mobile menu.
+   --------------------------------------------------------------------- */
+@media (max-width: 860px) {
+
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__nav {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: rgba(11, 13, 18, 0.98);
+    backdrop-filter: blur(10px);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-med);
+    border-bottom: 1px solid rgba(245, 246, 248, 0.08);
+  }
+
+  .navbar__nav.is-open {
+    max-height: 400px;
+  }
+
+  .navbar__link {
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  .navbar__link::after {
+    display: none;
+  }
+
+  .navbar__actions .btn--gold {
+    display: none; /* hidden on mobile nav bar to save space; still available in hero + footer */
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-preview__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview__media {
+    order: -1;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: auto;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   PRODUCTS PAGE — TABLET  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .hero--page {
+    min-height: 42vh;
+  }
+
+  .products {
+    padding: 70px 0 80px;
+  }
+
+  .products__grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .hero--page {
+    min-height: 38vh;
+  }
+
+  .products__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 18px;
+  }
+
+  .navbar__brand-text {
+    display: none; /* logo mark only on very small screens */
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__headline {
+    font-size: 2rem;
+  }
+
+  .highlights {
+    padding: 70px 0;
+  }
+
+  .highlights__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview,
+  .highlights {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .footer__bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}/* =====================================================================
+   BALAJI ENTERPRISES — RESPONSIVE STYLESHEET
+   Breakpoints: 1024px (tablet), 768px (small tablet), 480px (mobile)
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-preview__grid {
+    gap: 40px;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   SMALL TABLET / LARGE MOBILE  (<= 860px)
+   Navigation collapses into a slide-down mobile menu.
+   --------------------------------------------------------------------- */
+@media (max-width: 860px) {
+
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__nav {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: rgba(11, 13, 18, 0.98);
+    backdrop-filter: blur(10px);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-med);
+    border-bottom: 1px solid rgba(245, 246, 248, 0.08);
+  }
+
+  .navbar__nav.is-open {
+    max-height: 400px;
+  }
+
+  .navbar__link {
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  .navbar__link::after {
+    display: none;
+  }
+
+  .navbar__actions .btn--gold {
+    display: none; /* hidden on mobile nav bar to save space; still available in hero + footer */
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-preview__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview__media {
+    order: -1;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: auto;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   PRODUCTS PAGE — TABLET  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .hero--page {
+    min-height: 42vh;
+  }
+
+  .products {
+    padding: 70px 0 80px;
+  }
+
+  .products__grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .hero--page {
+    min-height: 38vh;
+  }
+
+  .products__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 18px;
+  }
+
+  .navbar__brand-text {
+    display: none; /* logo mark only on very small screens */
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__headline {
+    font-size: 2rem;
+  }
+
+  .highlights {
+    padding: 70px 0;
+  }
+
+  .highlights__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview,
+  .highlights {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .footer__bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* =====================================================================
+   ABOUT PAGE — ADDITIONAL RESPONSIVE RULES
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .why-us__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .strengths__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-card {
+    border-left: none;
+    border-top: 1px solid rgba(245, 246, 248, 0.2);
+  }
+
+  .stat-card:first-child {
+    border-top: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .mission-vision,
+  .why-us,
+  .quality,
+  .strengths {
+    padding: 70px 0;
+  }
+
+  .mv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-us__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quality__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .quality__media {
+    order: -1;
+  }
+
+  .cta__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .strengths__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    border-top: none;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(245, 246, 248, 0.15);
+  }
+
+  .stat-card:last-child {
+    border-bottom: none;
+  }
+
+  .mv-card {
+    padding: 34px 26px;
+  }
+
+  .cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}/* =====================================================================
+   BALAJI ENTERPRISES — RESPONSIVE STYLESHEET
+   Breakpoints: 1024px (tablet), 768px (small tablet), 480px (mobile)
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-preview__grid {
+    gap: 40px;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   SMALL TABLET / LARGE MOBILE  (<= 860px)
+   Navigation collapses into a slide-down mobile menu.
+   --------------------------------------------------------------------- */
+@media (max-width: 860px) {
+
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__nav {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: rgba(11, 13, 18, 0.98);
+    backdrop-filter: blur(10px);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-med);
+    border-bottom: 1px solid rgba(245, 246, 248, 0.08);
+  }
+
+  .navbar__nav.is-open {
+    max-height: 400px;
+  }
+
+  .navbar__link {
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  .navbar__link::after {
+    display: none;
+  }
+
+  .navbar__actions .btn--gold {
+    display: none; /* hidden on mobile nav bar to save space; still available in hero + footer */
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .highlights__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-preview__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview__media {
+    order: -1;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__grid .footer__col:first-child {
+    grid-column: auto;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   PRODUCTS PAGE — TABLET  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .hero--page {
+    min-height: 42vh;
+  }
+
+  .products {
+    padding: 70px 0 80px;
+  }
+
+  .products__grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .hero--page {
+    min-height: 38vh;
+  }
+
+  .products__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 18px;
+  }
+
+  .navbar__brand-text {
+    display: none; /* logo mark only on very small screens */
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__headline {
+    font-size: 2rem;
+  }
+
+  .highlights {
+    padding: 70px 0;
+  }
+
+  .highlights__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-preview,
+  .highlights {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .footer__bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* =====================================================================
+   ABOUT PAGE — ADDITIONAL RESPONSIVE RULES
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .why-us__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .strengths__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-card {
+    border-left: none;
+    border-top: 1px solid rgba(245, 246, 248, 0.2);
+  }
+
+  .stat-card:first-child {
+    border-top: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .mission-vision,
+  .why-us,
+  .quality,
+  .strengths {
+    padding: 70px 0;
+  }
+
+  .mv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-us__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quality__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .quality__media {
+    order: -1;
+  }
+
+  .cta__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .strengths__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    border-top: none;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(245, 246, 248, 0.15);
+  }
+
+  .stat-card:last-child {
+    border-bottom: none;
+  }
+
+  .mv-card {
+    padding: 34px 26px;
+  }
+
+  .cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =====================================================================
+   PRODUCT-DETAIL TEMPLATE — RESPONSIVE RULES
+   Applies to any page built from the reusable .pd-… template.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET  (<= 1024px)
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .pd-overview__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .pd-applications__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pd-advantages__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TABLET PORTRAIT  (<= 768px)
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  .pd-overview,
+  .pd-variants,
+  .pd-applications,
+  .pd-advantages,
+  .pd-specs,
+  .pd-brochure {
+    padding: 70px 0;
+  }
+
+  .pd-variants__grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .pd-applications__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pd-brochure__box {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE  (<= 480px)
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  .pd-variants__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-applications__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-advantages__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-specs__table-wrap {
+    margin: 0 -18px;
+    border-left: none;
+    border-right: none;
+    width: calc(100% + 36px);
+  }
+
+  .pd-brochure__box {
+    padding: 30px 24px;
+  }
+}
