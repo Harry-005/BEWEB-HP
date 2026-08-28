@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Balaji Enterprises</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #17233b;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 360px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+        }
+
+        h1 {
+            margin: 0;
+            text-align: center;
+            color: #17233b;
+            font-size: 28px;
+        }
+
+        h1 span {
+            color: #19a974;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin: 10px 0 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #f5a000;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #f5a000;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #d98b00;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: wait;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            color: red;
+            min-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>
+        BALAJI <span>ENTERPRISES</span>
+    </h1>
+
+    <div class="subtitle">
+        Admin Login
+    </div>
+
+    <form id="loginForm">
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            autocomplete="username"
+            required
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit" id="loginButton">
+            LOGIN
+        </button>
+
+    </form>
+
+    <div id="message"></div>
+
+</div>
+
+
+<script>
+
+document
+    .getElementById("loginForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("username").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        const button =
+            document.getElementById("loginButton");
+
+        const message =
+            document.getElementById("message");
+
+        message.textContent = "";
+        button.disabled = true;
+        button.textContent = "LOGGING IN...";
+
+        try {
+
+            const response = await fetch(
+                "/api/admin/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    credentials: "include",
+
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+
+                message.textContent =
+                    data.message || "Invalid username or password.";
+
+                button.disabled = false;
+                button.textContent = "LOGIN";
+
+                return;
+            }
+
+            /*
+             * Login successful.
+             * The server has created the session.
+             */
+
+            window.location.href = "/admin.html";
+
+        } catch (error) {
+
+            console.error("LOGIN ERROR:", error);
+
+            message.textContent =
+                "Cannot connect to server.";
+
+            button.disabled = false;
+            button.textContent = "LOGIN";
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

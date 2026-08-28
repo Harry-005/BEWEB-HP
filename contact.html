@@ -217,8 +217,7 @@
 
           <!-- Placeholder form: no backend wired up yet. Point action="" at your form
                handler (e.g. Formspree, Google Apps Script, or a server endpoint) when ready. -->
-          <form class="contact-form" action="#" method="POST">
-
+          <form class="contact-form" id="contactForm">
             <div class="form-row">
               <div class="form-group">
                 <label for="cf-name">Full Name</label>
@@ -444,7 +443,47 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="js/main.js"></script>
+    <script>
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const data = {
+        name: form.elements["name"].value,
+        company: "",
+        phone: form.elements["phone"].value,
+        email: form.elements["email"].value,
+        product: form.elements["subject"].value,
+        quantity: "",
+        message: form.elements["message"].value
+    };
+
+    try {
+        const response = await fetch("http://localhost:3000/api/enquiry", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("✅ Enquiry submitted successfully!");
+            form.reset();
+        } else {
+            alert("❌ " + result.message);
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("❌ Cannot connect to the server.");
+    }
+});
+</script>
+
+<script src="js/main.js"></script>
 </body>
 </html>

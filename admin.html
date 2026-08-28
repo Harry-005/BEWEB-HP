@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard | Balaji Enterprises</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #17233b;
+        }
+
+
+        /* =====================================================
+           LOGIN
+        ===================================================== */
+
+        #loginPage {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #17233b;
+
+            padding: 20px;
+        }
+
+
+        .login-box {
+
+            width: 100%;
+
+            max-width: 420px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,0.25);
+        }
+
+
+        .login-logo {
+
+            text-align: center;
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+            color: #17233b;
+        }
+
+
+        .login-logo span {
+
+            color: #19a974;
+        }
+
+
+        .login-subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 30px;
+
+            font-size: 16px;
+        }
+
+
+        .login-input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        .login-input:focus {
+
+            border-color: #f5a000;
+        }
+
+
+        .login-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #f5a000;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .login-button:hover {
+
+            background: #d98b00;
+        }
+
+
+        .login-button:disabled {
+
+            background: #aaa;
+
+            cursor: wait;
+        }
+
+
+        #loginMessage {
+
+            text-align: center;
+
+            color: #d32f2f;
+
+            margin-top: 15px;
+
+            min-height: 20px;
+        }
+
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        #dashboardPage {
+
+            display: none;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .admin-header {
+
+            background: #17233b;
+
+            color: white;
+
+            padding: 22px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .admin-header h1 {
+
+            margin: 0;
+
+            font-size: 26px;
+        }
+
+
+        .admin-header h1 span {
+
+            color: #19a974;
+        }
+
+
+        .header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .logout-btn {
+
+            border: none;
+
+            background: #ef4444;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #dc2626;
+        }
+
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .admin-container {
+
+            max-width: 1400px;
+
+            margin: 40px auto;
+
+            padding: 0 25px;
+        }
+
+
+        .dashboard-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 25px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .dashboard-top h2 {
+
+            margin: 0;
+
+            font-size: 25px;
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .stats-container {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .count-box {
+
+            background: white;
+
+            padding: 18px 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08);
+
+            text-align: center;
+        }
+
+
+        .count-box strong {
+
+            display: block;
+
+            margin-top: 8px;
+
+            font-size: 28px;
+
+            color: #17233b;
+        }
+
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-box {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        .search-box:focus {
+
+            border-color: #17233b;
+        }
+
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        .table-container {
+
+            background: white;
+
+            border-radius: 12px;
+
+            overflow-x: auto;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.08);
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1100px;
+        }
+
+
+        th {
+
+            background: #17233b;
+
+            color: white;
+
+            padding: 15px;
+
+            text-align: left;
+        }
+
+
+        td {
+
+            padding: 14px 15px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        tbody tr:hover {
+
+            background: #f8fafc;
+        }
+
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .status-new {
+
+            background: #e7f7ef;
+
+            color: #168653;
+        }
+
+
+        .status-contacted {
+
+            background: #e8f0ff;
+
+            color: #315bb5;
+        }
+
+
+        .status-closed {
+
+            background: #f1f1f1;
+
+            color: #555;
+        }
+
+
+
+        /* =====================================================
+           ACTION BUTTONS
+        ===================================================== */
+
+        .action-buttons {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .view-btn,
+        .contact-btn {
+
+            border: none;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-weight: bold;
+        }
+
+
+        .view-btn {
+
+            background: #f5a000;
+        }
+
+
+        .view-btn:hover {
+
+            background: #d98b00;
+        }
+
+
+        .contact-btn {
+
+            background: #168653;
+        }
+
+
+        .contact-btn:hover {
+
+            background: #116c42;
+        }
+
+
+        .contact-btn:disabled {
+
+            background: #aaa;
+
+            cursor: default;
+        }
+
+
+
+        /* =====================================================
+           LOADING / EMPTY / ERROR
+        ===================================================== */
+
+        .loading,
+        .empty,
+        .error-box {
+
+            text-align: center;
+
+            padding: 45px;
+
+            color: #777;
+        }
+
+
+        .error-box {
+
+            color: #d32f2f;
+        }
+
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0,0,0,0.65);
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            z-index: 9999;
+        }
+
+
+        .modal {
+
+            background: white;
+
+            width: 100%;
+
+            max-width: 650px;
+
+            max-height: 85vh;
+
+            overflow-y: auto;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,0.35);
+        }
+
+
+        .modal-header {
+
+            background: #17233b;
+
+            color: white;
+
+            padding: 20px 25px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            position: sticky;
+
+            top: 0;
+        }
+
+
+        .modal-header h3 {
+
+            margin: 0;
+        }
+
+
+        .close-x {
+
+            background: transparent;
+
+            border: none;
+
+            color: white;
+
+            font-size: 28px;
+
+            cursor: pointer;
+
+            line-height: 1;
+        }
+
+
+        .close-x:hover {
+
+            opacity: 0.7;
+        }
+
+
+        .modal-body {
+
+            padding: 20px 25px;
+        }
+
+
+        .detail-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .detail-label {
+
+            color: #777;
+        }
+
+
+        .detail-value {
+
+            font-weight: bold;
+
+            text-align: right;
+
+            word-break: break-word;
+        }
+
+
+        .message-box {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #f4f6f8;
+
+            border-radius: 10px;
+        }
+
+
+        .message-box strong {
+
+            display: block;
+
+            color: #777;
+
+            margin-bottom: 10px;
+        }
+
+
+        .modal-footer {
+
+            padding: 15px 25px;
+
+            border-top: 1px solid #eee;
+
+            text-align: right;
+        }
+
+
+        .close-btn {
+
+            border: none;
+
+            background: #17233b;
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .close-btn:hover {
+
+            background: #253555;
+        }
+
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .stats-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .admin-header {
+
+                padding: 18px 20px;
+            }
+
+
+            .admin-header h1 {
+
+                font-size: 20px;
+            }
+
+
+            .header-right {
+
+                gap: 10px;
+
+                font-size: 13px;
+            }
+
+
+            .logout-btn {
+
+                padding: 8px 12px;
+            }
+
+
+            .admin-container {
+
+                margin: 25px auto;
+
+                padding: 0 15px;
+            }
+
+
+            .dashboard-top {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .stats-container {
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 10px;
+            }
+
+
+            .count-box {
+
+                padding: 14px 8px;
+
+                font-size: 13px;
+            }
+
+
+            .count-box strong {
+
+                font-size: 22px;
+            }
+
+
+            .action-buttons {
+
+                flex-direction: column;
+            }
+
+
+            .detail-row {
+
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+
+            .detail-value {
+
+                text-align: left;
+            }
+
+
+            .login-box {
+
+                padding: 30px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOGIN PAGE
+========================================================= -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            Balaji <span>Enterprises</span>
+        </div>
+
+
+        <div class="login-subtitle">
+            Admin Login
+        </div>
+
+
+        <form id="loginForm">
+
+            <input
+                type="text"
+                id="username"
+                class="login-input"
+                placeholder="Username"
+                autocomplete="username"
+                required
+            >
+
+
+            <input
+                type="password"
+                id="password"
+                class="login-input"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <button
+                type="submit"
+                id="loginButton"
+                class="login-button"
+            >
+                LOGIN
+            </button>
+
+        </form>
+
+
+        <div id="loginMessage"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<div id="dashboardPage">
+
+
+    <!-- HEADER -->
+
+    <header class="admin-header">
+
+        <h1>
+            Balaji <span>Enterprises</span>
+        </h1>
+
+
+        <div class="header-right">
+
+            <div>
+                Admin Dashboard
+            </div>
+
+
+            <button
+                class="logout-btn"
+                id="logoutButton"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="admin-container">
+
+
+        <div class="dashboard-top">
+
+            <h2>
+                ENQUIRIES
+            </h2>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================= -->
+
+        <div class="stats-container">
+
+            <div class="count-box">
+
+                📊 Total Enquiries
+
+                <strong id="totalCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="count-box">
+
+                🆕 New
+
+                <strong id="newCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="count-box">
+
+                📞 Contacted
+
+                <strong id="contactedCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="count-box">
+
+                📅 Today
+
+                <strong id="todayCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="Search by name, phone, email or product..."
+            autocomplete="off"
+        >
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+
+            <div
+                id="loading"
+                class="loading"
+            >
+                Loading enquiries...
+            </div>
+
+
+            <table
+                id="enquiryTable"
+                style="display:none;"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Company</th>
+
+                        <th>Phone</th>
+
+                        <th>Email</th>
+
+                        <th>Product</th>
+
+                        <th>Quantity</th>
+
+                        <th>Date</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="enquiryBody"></tbody>
+
+            </table>
+
+
+            <div
+                id="emptyMessage"
+                class="empty"
+                style="display:none;"
+            >
+                No enquiries found.
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         DETAILS MODAL
+    ====================================================== -->
+
+    <div
+        id="detailsModal"
+        class="modal-overlay"
+    >
+
+        <div class="modal">
+
+
+            <div class="modal-header">
+
+                <h3>
+                    Enquiry Details
+                </h3>
+
+
+                <button
+                    type="button"
+                    class="close-x"
+                    id="closeModalX"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                id="modalBody"
+                class="modal-body"
+            >
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="close-btn"
+                    id="closeModalButton"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
+let enquiries = [];
+
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const loginPage =
+    document.getElementById("loginPage");
+
+const dashboardPage =
+    document.getElementById("dashboardPage");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const loading =
+    document.getElementById("loading");
+
+const enquiryTable =
+    document.getElementById("enquiryTable");
+
+const enquiryBody =
+    document.getElementById("enquiryBody");
+
+const emptyMessage =
+    document.getElementById("emptyMessage");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const detailsModal =
+    document.getElementById("detailsModal");
+
+const modalBody =
+    document.getElementById("modalBody");
+
+
+
+/* =========================================================
+   SHOW LOGIN
+========================================================= */
+
+function showLogin() {
+
+    loginPage.style.display = "flex";
+
+    dashboardPage.style.display = "none";
+
+}
+
+
+
+/* =========================================================
+   SHOW DASHBOARD
+========================================================= */
+
+function showDashboard() {
+
+    loginPage.style.display = "none";
+
+    dashboardPage.style.display = "block";
+
+}
+
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const username =
+            document
+                .getElementById("username")
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        loginMessage.textContent = "";
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+            "LOGGING IN...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/admin/login",
+                    {
+                        method: "POST",
+
+                        credentials: "include",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                loginMessage.textContent =
+                    data.message ||
+                    "Invalid username or password.";
+
+                loginButton.disabled = false;
+
+                loginButton.textContent =
+                    "LOGIN";
+
+                return;
+            }
+
+
+            loginForm.reset();
+
+            loginButton.disabled = false;
+
+            loginButton.textContent =
+                "LOGIN";
+
+
+            showDashboard();
+
+            await loadEnquiries();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
+
+
+            loginMessage.textContent =
+                "Cannot connect to server. Make sure Node server is running.";
+
+
+            loginButton.disabled = false;
+
+            loginButton.textContent =
+                "LOGIN";
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   LOAD ENQUIRIES
+========================================================= */
+
+async function loadEnquiries() {
+
+    loading.style.display = "block";
+
+    loading.className = "loading";
+
+    loading.textContent =
+        "Loading enquiries...";
+
+
+    enquiryTable.style.display =
+        "none";
+
+    emptyMessage.style.display =
+        "none";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/enquiries",
+                {
+                    method: "GET",
+
+                    credentials: "include",
+
+                    cache: "no-store"
+                }
+            );
+
+
+        /* SESSION EXPIRED */
+
+        if (response.status === 401) {
+
+            showLogin();
+
+            loginMessage.textContent =
+                "Session expired. Please login again.";
+
+            return;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load enquiries."
+            );
+        }
+
+
+        enquiries =
+            Array.isArray(data.enquiries)
+                ? data.enquiries
+                : [];
+
+
+        updateStatistics();
+
+        renderEnquiries(enquiries);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "LOAD ENQUIRIES ERROR:",
+            error
+        );
+
+
+        loading.style.display =
+            "block";
+
+        loading.className =
+            "error-box";
+
+        loading.textContent =
+            "Unable to load enquiries. Please check the server.";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   UPDATE STATISTICS
+========================================================= */
+
+function updateStatistics() {
+
+    const total =
+        enquiries.length;
+
+
+    const newCount =
+        enquiries.filter(
+            function(enquiry) {
+
+                return String(
+                    enquiry.status || "New"
+                ).toLowerCase() === "new";
+
+            }
+        ).length;
+
+
+    const contactedCount =
+        enquiries.filter(
+            function(enquiry) {
+
+                return String(
+                    enquiry.status || ""
+                ).toLowerCase() === "contacted";
+
+            }
+        ).length;
+
+
+    const now =
+        new Date();
+
+
+    const todayCount =
+        enquiries.filter(
+            function(enquiry) {
+
+                if (!enquiry.created_at) {
+
+                    return false;
+                }
+
+
+                const date =
+                    new Date(
+                        enquiry.created_at
+                    );
+
+
+                return (
+                    date.getFullYear() ===
+                        now.getFullYear() &&
+
+                    date.getMonth() ===
+                        now.getMonth() &&
+
+                    date.getDate() ===
+                        now.getDate()
+                );
+
+            }
+        ).length;
+
+
+    document
+        .getElementById("totalCount")
+        .textContent = total;
+
+
+    document
+        .getElementById("newCount")
+        .textContent = newCount;
+
+
+    document
+        .getElementById("contactedCount")
+        .textContent = contactedCount;
+
+
+    document
+        .getElementById("todayCount")
+        .textContent = todayCount;
+
+}
+
+
+
+/* =========================================================
+   RENDER ENQUIRIES
+========================================================= */
+
+function renderEnquiries(data) {
+
+    enquiryBody.innerHTML = "";
+
+
+    if (!data || data.length === 0) {
+
+        enquiryTable.style.display =
+            "none";
+
+        loading.style.display =
+            "none";
+
+        emptyMessage.style.display =
+            "block";
+
+        return;
+    }
+
+
+    loading.style.display =
+        "none";
+
+    emptyMessage.style.display =
+        "none";
+
+    enquiryTable.style.display =
+        "table";
+
+
+    data.forEach(
+        function(enquiry) {
+
+            const row =
+                document.createElement("tr");
+
+
+            const status =
+                enquiry.status || "New";
+
+
+            let statusClass =
+                "status-new";
+
+
+            if (
+                status.toLowerCase() ===
+                "contacted"
+            ) {
+
+                statusClass =
+                    "status-contacted";
+
+            }
+
+
+            if (
+                status.toLowerCase() ===
+                "closed"
+            ) {
+
+                statusClass =
+                    "status-closed";
+
+            }
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHTML(enquiry.id)}
+                </td>
+
+                <td>
+                    ${escapeHTML(enquiry.name || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(enquiry.company || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(enquiry.phone || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(enquiry.email || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(enquiry.product || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(enquiry.quantity || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        formatDate(enquiry.created_at)
+                    )}
+                </td>
+
+                <td>
+                    <span class="status ${statusClass}">
+                        ${escapeHTML(status)}
+                    </span>
+                </td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <button
+                            class="view-btn"
+                            type="button"
+                            onclick="viewEnquiry(${Number(enquiry.id)})"
+                        >
+                            View
+                        </button>
+
+                        <button
+                            class="contact-btn"
+                            type="button"
+                            ${
+                                status.toLowerCase() ===
+                                "contacted"
+                                    ? "disabled"
+                                    : ""
+                            }
+                            onclick="markContacted(${Number(enquiry.id)})"
+                        >
+                            ${
+                                status.toLowerCase() ===
+                                "contacted"
+                                    ? "Contacted"
+                                    : "Mark Contacted"
+                            }
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            enquiryBody.appendChild(row);
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   VIEW ENQUIRY
+========================================================= */
+
+function viewEnquiry(id) {
+
+    const enquiry =
+        enquiries.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(id);
+
+            }
+        );
+
+
+    if (!enquiry) {
+
+        alert(
+            "Enquiry not found."
+        );
+
+        return;
+    }
+
+
+    modalBody.innerHTML = `
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                ID
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.id)}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Name
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.name || "-")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Company
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.company || "-")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Phone
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.phone || "-")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Email
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.email || "-")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Product
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.product || "-")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Quantity
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(enquiry.quantity || "-")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Date
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(
+                    formatDate(enquiry.created_at)
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <span class="detail-label">
+                Status
+            </span>
+
+            <span class="detail-value">
+                ${escapeHTML(
+                    enquiry.status || "New"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="message-box">
+
+            <strong>
+                Message
+            </strong>
+
+            <div>
+                ${escapeHTML(
+                    enquiry.message || "-"
+                )}
+            </div>
+
+        </div>
+
+    `;
+
+
+    detailsModal.style.display =
+        "flex";
+
+}
+
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    detailsModal.style.display =
+        "none";
+
+}
+
+
+
+/* CLOSE BUTTON */
+
+document
+    .getElementById("closeModalButton")
+    .addEventListener(
+        "click",
+        closeModal
+    );
+
+
+/* CLOSE X */
+
+document
+    .getElementById("closeModalX")
+    .addEventListener(
+        "click",
+        closeModal
+    );
+
+
+/* CLICK OUTSIDE */
+
+detailsModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            detailsModal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* ESCAPE KEY */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            detailsModal.style.display === "flex"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   MARK CONTACTED
+========================================================= */
+
+async function markContacted(id) {
+
+    const confirmed =
+        confirm(
+            "Mark this enquiry as Contacted?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/admin/enquiries/${id}/status`,
+                {
+                    method: "PATCH",
+
+                    credentials: "include",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        status: "Contacted"
+                    })
+                }
+            );
+
+
+        if (response.status === 401) {
+
+            alert(
+                "Your session has expired. Please login again."
+            );
+
+            showLogin();
+
+            return;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Failed to update status."
+            );
+        }
+
+
+        const enquiry =
+            enquiries.find(
+                function(item) {
+
+                    return Number(item.id) ===
+                        Number(id);
+
+                }
+            );
+
+
+        if (enquiry) {
+
+            enquiry.status =
+                "Contacted";
+        }
+
+
+        updateStatistics();
+
+
+        applySearch();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "STATUS UPDATE ERROR:",
+            error
+        );
+
+
+        alert(
+            "Could not update enquiry status."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    applySearch
+);
+
+
+function applySearch() {
+
+    const search =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
+        enquiries.filter(
+            function(enquiry) {
+
+                return (
+
+                    String(
+                        enquiry.name || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+
+                    ||
+
+
+                    String(
+                        enquiry.company || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+
+                    ||
+
+
+                    String(
+                        enquiry.phone || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+
+                    ||
+
+
+                    String(
+                        enquiry.email || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+
+                    ||
+
+
+                    String(
+                        enquiry.product || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+
+                    ||
+
+
+                    String(
+                        enquiry.quantity || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+                );
+
+            }
+        );
+
+
+    renderEnquiries(filtered);
+
+}
+
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(date) {
+
+    if (!date) {
+
+        return "-";
+    }
+
+
+    const parsedDate =
+        new Date(date);
+
+
+    if (
+        Number.isNaN(
+            parsedDate.getTime()
+        )
+    ) {
+
+        return "-";
+    }
+
+
+    return parsedDate.toLocaleString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.textContent =
+        String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        logout
+    );
+
+
+async function logout() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/logout",
+                {
+                    method: "POST",
+
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            enquiries = [];
+
+
+            enquiryBody.innerHTML =
+                "";
+
+
+            document
+                .getElementById("totalCount")
+                .textContent = "0";
+
+
+            document
+                .getElementById("newCount")
+                .textContent = "0";
+
+
+            document
+                .getElementById("contactedCount")
+                .textContent = "0";
+
+
+            document
+                .getElementById("todayCount")
+                .textContent = "0";
+
+
+            searchInput.value = "";
+
+
+            closeModal();
+
+
+            showLogin();
+
+        }
+
+        else {
+
+            alert(
+                "Logout failed."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "LOGOUT ERROR:",
+            error
+        );
+
+
+        alert(
+            "Cannot connect to server."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+/*
+    IMPORTANT:
+
+    Do NOT automatically load enquiries
+    before login.
+
+    Login first.
+
+    Then:
+        showDashboard()
+        loadEnquiries()
+*/
+
+showLogin();
+
+</script>
+
+
+</body>
+
+</html>
