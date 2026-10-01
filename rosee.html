@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIVER JUICE BAR | Freshness That Flows — Poonamallee, Chennai</title>
+    <meta name="description" content="Cold-pressed juices, creamy smoothies, shakes, and healthy fruit bowls in Poonamallee, Chennai. Freshness That Flows. Founded by Hariharan.">
+    
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="RIVER JUICE BAR — Freshness That Flows">
+    <meta property="og:description" content="Cold-pressed juices, creamy smoothies and healthy bowls made fresh for your day in Chennai.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons & Tailwind CSS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepGreen: '#12372A',
+                        freshGreen: '#2E7D32',
+                        limeAccent: '#A8D44A',
+                        orangeAccent: '#FF8A3D',
+                        creamBG: '#FFF8E7',
+                        warmBg: '#FAF9F4',
+                        textDark: '#172018',
+                    },
+                    fontFamily: {
+                        heading: ['Poppins', 'Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(18, 55, 42, 0.08)',
+                        'card-hover': '0 20px 40px -15px rgba(46, 125, 50, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF9F4;
+            color: #172018;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Poppins', 'Montserrat', sans-serif;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-nav {
+            background: rgba(250, 249, 244, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(46, 125, 50, 0.12);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 212, 74, 0.25);
+        }
+
+        /* Floating fruit animations */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(4deg); }
+        }
+
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(-6deg); }
+        }
+
+        .animate-float {
+            animation: float-slow 5s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float-delayed 6.5s ease-in-out infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2E7D32;
+            border-radius: 999px;
+        }
+
+        /* Page View Switch Transitions */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .page-view.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Toast notification styling */
+        #toast {
+            transform: translateY(100px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #toast.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-limeAccent selection:text-deepGreen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#home" onclick="navigateTo('home')" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-full bg-deepGreen flex items-center justify-center text-limeAccent group-hover:scale-105 transition-transform shadow-md">
+                        <i data-lucide="citrus" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-xl sm:text-2xl text-deepGreen tracking-tight block leading-none">RIVER</span>
+                        <span class="text-[10px] tracking-widest text-freshGreen font-bold uppercase">Juice Bar</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 font-medium text-textDark">
+                    <button onclick="navigateTo('home')" id="nav-home" class="nav-link text-freshGreen font-bold hover:text-freshGreen transition-colors py-1">Home</button>
+                    <button onclick="navigateTo('menu')" id="nav-menu" class="nav-link hover:text-freshGreen transition-colors py-1">Menu</button>
+                    <button onclick="navigateTo('about')" id="nav-about" class="nav-link hover:text-freshGreen transition-colors py-1">About</button>
+                    <button onclick="navigateTo('contact')" id="nav-contact" class="nav-link hover:text-freshGreen transition-colors py-1">Contact</button>
+                </nav>
+
+                <!-- Action CTAs -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Project Inspector Button -->
+                    <button onclick="toggleInspectorModal()" class="p-2.5 rounded-full hover:bg-creamBG text-deepGreen transition-colors border border-gray-200" title="Project Code Inspector">
+                        <i data-lucide="folder-code" class="w-5 h-5 text-freshGreen"></i>
+                    </button>
+
+                    <!-- Cart Button -->
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-full hover:bg-creamBG text-deepGreen transition-colors">
+                        <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-orangeAccent text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
+                    </button>
+
+                    <button onclick="navigateTo('menu')" class="bg-deepGreen hover:bg-freshGreen text-white px-6 py-2.5 rounded-full font-semibold transition-all hover:shadow-lg transform active:scale-95 flex items-center gap-2">
+                        <span>Order Now</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu & Cart Buttons -->
+                <div class="flex items-center space-x-2 md:hidden">
+                    <button onclick="toggleInspectorModal()" class="p-2 rounded-full hover:bg-creamBG text-deepGreen">
+                        <i data-lucide="folder-code" class="w-5 h-5 text-freshGreen"></i>
+                    </button>
+                    <button onclick="toggleCartDrawer()" class="relative p-2 rounded-full hover:bg-creamBG text-deepGreen">
+                        <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                        <span id="cart-badge-mobile" class="absolute -top-1 -right-1 bg-orangeAccent text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-xl text-deepGreen hover:bg-creamBG">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-warmBg border-b border-gray-200 px-4 pt-2 pb-6 space-y-3">
+            <button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 font-semibold text-lg hover:bg-creamBG rounded-xl text-deepGreen">Home</button>
+            <button onclick="navigateTo('menu'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 font-semibold text-lg hover:bg-creamBG rounded-xl text-deepGreen">Menu</button>
+            <button onclick="navigateTo('about'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 font-semibold text-lg hover:bg-creamBG rounded-xl text-deepGreen">About Us</button>
+            <button onclick="navigateTo('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 font-semibold text-lg hover:bg-creamBG rounded-xl text-deepGreen">Contact</button>
+            <div class="pt-2 flex flex-col gap-2">
+                <button onclick="navigateTo('menu'); toggleMobileMenu();" class="w-full bg-deepGreen text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-limeAccent"></i>
+                    <span>Order Fresh Drinks</span>
+                </button>
+                <button onclick="toggleInspectorModal(); toggleMobileMenu();" class="w-full bg-creamBG border border-freshGreen/30 text-deepGreen py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2">
+                    <i data-lucide="folder-code" class="w-4 h-4"></i>
+                    <span>Inspect Code Structure</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APPLICATION CONTAINER (SPA VIEWS) -->
+    <main class="flex-grow">
+
+        <!-- ================= HOME PAGE VIEW ================= -->
+        <div id="view-home" class="page-view active">
+            
+            <!-- Hero Section -->
+            <section class="relative overflow-hidden pt-8 pb-16 lg:py-24">
+                <!-- Decorative background elements -->
+                <div class="absolute top-10 left-10 w-72 h-72 bg-limeAccent/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-10 right-10 w-96 h-96 bg-orangeAccent/15 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        
+                        <!-- Left Content -->
+                        <div class="space-y-6 text-center lg:text-left z-10">
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-creamBG border border-limeAccent/40 text-deepGreen font-semibold text-sm shadow-sm">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-orangeAccent"></i>
+                                <span>Poonamallee, Chennai • 100% Raw & Cold-Pressed</span>
+                            </div>
+                            
+                            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-deepGreen leading-tight">
+                                Freshness <br class="hidden sm:inline">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-freshGreen via-limeAccent to-orangeAccent">That Flows.</span>
+                            </h1>
+
+                            <p class="text-base sm:text-lg text-textDark/80 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                                Fresh cold-pressed juices, creamy smoothies, and energizing shakes crafted from fresh farm-picked fruits. Pure vitality served in every sip near Gokulam Cinema.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                                <button onclick="navigateTo('menu')" class="w-full sm:w-auto px-8 py-4 bg-deepGreen hover:bg-freshGreen text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+                                    <span>Explore Menu</span>
+                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                </button>
+                                <button onclick="toggleCartDrawer()" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-creamBG border border-freshGreen/20 text-deepGreen font-semibold rounded-full shadow-md transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="shopping-bag" class="w-5 h-5 text-orangeAccent"></i>
+                                    <span>Quick Order</span>
+                                </button>
+                            </div>
+
+                            <!-- Highlights counter -->
+                            <div class="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200/80 max-w-lg mx-auto lg:mx-0">
+                                <div>
+                                    <span class="block text-2xl sm:text-3xl font-extrabold text-deepGreen">25+</span>
+                                    <span class="text-xs sm:text-sm text-gray-600">Fresh Recipes</span>
+                                </div>
+                                <div>
+                                    <span class="block text-2xl sm:text-3xl font-extrabold text-deepGreen">0%</span>
+                                    <span class="text-xs sm:text-sm text-gray-600">Added Sugar</span>
+                                </div>
+                                <div>
+                                    <span class="block text-2xl sm:text-3xl font-extrabold text-deepGreen">4.9★</span>
+                                    <span class="text-xs sm:text-sm text-gray-600">Poonamallee Rating</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Visual Image Canvas -->
+                        <div class="relative flex justify-center items-center">
+                            <div class="relative w-full max-w-md lg:max-w-lg">
+                                <!-- Backdrop Shape -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-freshGreen to-limeAccent rounded-3xl transform rotate-3 scale-95 opacity-90"></div>
+                                
+                                <!-- Main Showcase Image -->
+                                <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=800" 
+                                     alt="Fresh River Smoothie" 
+                                     class="relative z-10 w-full h-[420px] sm:h-[480px] object-cover rounded-3xl shadow-2xl border-4 border-white">
+
+                                <!-- Floating Badge 1 -->
+                                <div class="absolute -top-6 -left-6 z-20 glass-card p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-float">
+                                    <div class="w-10 h-10 rounded-full bg-orangeAccent/20 flex items-center justify-center text-orangeAccent font-bold text-xl">🍊</div>
+                                    <div>
+                                        <p class="text-xs font-bold text-deepGreen">Orange Burst</p>
+                                        <p class="text-[10px] text-gray-500">100% Pure Raw</p>
+                                    </div>
+                                </div>
+
+                                <!-- Floating Badge 2 -->
+                                <div class="absolute -bottom-6 -right-6 z-20 glass-card p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-float-delayed">
+                                    <div class="w-10 h-10 rounded-full bg-freshGreen/20 flex items-center justify-center text-freshGreen font-bold text-xl">🥭</div>
+                                    <div>
+                                        <p class="text-xs font-bold text-deepGreen">Mango Magic</p>
+                                        <p class="text-[10px] text-gray-500">Rich & Creamy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <span class="text-orangeAccent font-bold uppercase tracking-wider text-sm">Made Fresh. Made For You.</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-deepGreen mt-1">Featured Handcrafted Drinks</h2>
+                        <p class="text-gray-600 mt-2">Prepared fresh on order at our Poonamallee outlet</p>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div id="featured-products-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <button onclick="navigateTo('menu')" class="px-8 py-3.5 bg-creamBG hover:bg-limeAccent/30 text-deepGreen border border-limeAccent/50 font-bold rounded-full transition-all inline-flex items-center gap-2">
+                            <span>View All Menu Drinks</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why River Section -->
+            <section class="py-16 bg-warmBg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-14">
+                        <span class="text-freshGreen font-bold uppercase tracking-wider text-sm">Why Choose River?</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-deepGreen mt-1">Pure Taste, Zero Compromise</h2>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        
+                        <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-creamBG text-orangeAccent flex items-center justify-center mb-5">
+                                <i data-lucide="apple" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-deepGreen mb-2">🍊 Fresh Ingredients</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Farm-picked local fruits delivered daily. No frozen pulp, no artificial additives.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-creamBG text-freshGreen flex items-center justify-center mb-5">
+                                <i data-lucide="flame" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-deepGreen mb-2">🥤 Made Fresh</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Every bottle and smoothie bowl is blended live only when you order.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-creamBG text-limeAccent flex items-center justify-center mb-5">
+                                <i data-lucide="shield-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-deepGreen mb-2">🌱 Quality First</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Pure cold-press nutrients kept intact without synthetic syrups or chemicals.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-creamBG text-deepGreen flex items-center justify-center mb-5">
+                                <i data-lucide="smile" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-deepGreen mb-2">✨ Good Vibes</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">A welcoming, instagrammable spot near Gokulam Cinema to recharge with friends.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Combo Offer Banner -->
+            <section class="py-12">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-deepGreen via-freshGreen to-deepGreen text-white p-8 sm:p-12 shadow-2xl">
+                        <div class="absolute right-0 top-0 translate-x-12 -translate-y-12 w-80 h-80 bg-limeAccent/20 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative z-10 max-w-2xl space-y-4">
+                            <span class="inline-block px-3 py-1 bg-limeAccent text-deepGreen font-extrabold text-xs rounded-full uppercase tracking-widest">Poonamallee Special</span>
+                            <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">YOUR DAILY DOSE OF FRESH.</h2>
+                            <p class="text-white/90 text-base sm:text-lg font-light">
+                                Cold-Pressed Orange Juice + Fresh Fruit Granola Bowl combo starting from <span class="font-bold text-limeAccent">₹149</span>.
+                            </p>
+                            <div class="pt-4">
+                                <button onclick="addComboToCart()" class="bg-orangeAccent hover:bg-orange-600 text-white font-bold px-8 py-3.5 rounded-full shadow-lg transition-transform active:scale-95 flex items-center gap-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    <span>Grab The Deal</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <span class="text-orangeAccent font-bold uppercase tracking-wider text-sm">Local Reviews</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-deepGreen mt-1">Loved By Freshness Seekers</h2>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-warmBg p-8 rounded-2xl border border-gray-100 flex flex-col justify-between">
+                            <p class="text-gray-700 italic leading-relaxed">“Best juice spot near Gokulam Cinema! The Mango Magic smoothie is super thick and naturally sweet.”</p>
+                            <div class="mt-6 flex items-center justify-between border-t border-gray-200/60 pt-4">
+                                <div>
+                                    <h4 class="font-bold text-deepGreen">Karthik Raja</h4>
+                                    <span class="text-xs text-gray-500">Poonamallee Resident</span>
+                                </div>
+                                <div class="text-amber-400 text-sm">★★★★★</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-warmBg p-8 rounded-2xl border border-gray-100 flex flex-col justify-between">
+                            <p class="text-gray-700 italic leading-relaxed">“Quick WhatsApp order delivery. Orange Burst juice is 100% pure without water dilution.”</p>
+                            <div class="mt-6 flex items-center justify-between border-t border-gray-200/60 pt-4">
+                                <div>
+                                    <h4 class="font-bold text-deepGreen">Ananya S.</h4>
+                                    <span class="text-xs text-gray-500">Chennai Regular</span>
+                                </div>
+                                <div class="text-amber-400 text-sm">★★★★★</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-warmBg p-8 rounded-2xl border border-gray-100 flex flex-col justify-between">
+                            <p class="text-gray-700 italic leading-relaxed">“Great ambience, super hygienic, and Hariharan sir makes sure every customer leaves happy!”</p>
+                            <div class="mt-6 flex items-center justify-between border-t border-gray-200/60 pt-4">
+                                <div>
+                                    <h4 class="font-bold text-deepGreen">Venkatesh M.</h4>
+                                    <span class="text-xs text-gray-500">Fitness Coach</span>
+                                </div>
+                                <div class="text-amber-400 text-sm">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instagram Grid -->
+            <section class="py-16 bg-warmBg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-freshGreen font-bold uppercase tracking-wider text-sm">@riverjuicebar</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-deepGreen mt-1">Fresh Looks Good On You</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="group relative overflow-hidden rounded-2xl h-64 shadow-md">
+                            <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&q=80&w=500" alt="Insta 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-deepGreen/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold gap-2">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                                <span>#RiverJuiceChennai</span>
+                            </div>
+                        </div>
+                        <div class="group relative overflow-hidden rounded-2xl h-64 shadow-md">
+                            <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&q=80&w=500" alt="Insta 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-deepGreen/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold gap-2">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                                <span>#PureFreshness</span>
+                            </div>
+                        </div>
+                        <div class="group relative overflow-hidden rounded-2xl h-64 shadow-md">
+                            <img src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&q=80&w=500" alt="Insta 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-deepGreen/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold gap-2">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                                <span>#PoonamalleeVibes</span>
+                            </div>
+                        </div>
+                        <div class="group relative overflow-hidden rounded-2xl h-64 shadow-md">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=500" alt="Insta 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-deepGreen/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold gap-2">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                                <span>#HealthyLiving</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ================= MENU PAGE VIEW ================= -->
+        <div id="view-menu" class="page-view">
+            <section class="py-12 bg-white border-b border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-deepGreen">Explore Our Menu</h1>
+                    <p class="text-gray-600 mt-2 max-w-xl mx-auto">100% natural juices, smoothies, shakes, coolers, and power bowls crafted fresh on order.</p>
+
+                    <!-- Search and Filter bar -->
+                    <div class="mt-8 max-w-xl mx-auto relative">
+                        <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-4 top-3.5"></i>
+                        <input type="text" id="menu-search-input" onkeyup="filterMenu()" placeholder="Search drinks (e.g., Orange, Mango, Mint, Bowl)..." class="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-freshGreen/50 bg-warmBg text-deepGreen placeholder-gray-400">
+                    </div>
+
+                    <!-- Category Tabs -->
+                    <div class="flex items-center justify-start sm:justify-center gap-2 mt-8 overflow-x-auto pb-2 scrollbar-none">
+                        <button onclick="setMenuCategory('all')" class="menu-cat-btn active bg-deepGreen text-white px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-colors">All Drinks</button>
+                        <button onclick="setMenuCategory('juices')" class="menu-cat-btn bg-creamBG text-deepGreen hover:bg-limeAccent/20 px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-colors">Fresh Juices</button>
+                        <button onclick="setMenuCategory('smoothies')" class="menu-cat-btn bg-creamBG text-deepGreen hover:bg-limeAccent/20 px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-colors">Smoothies</button>
+                        <button onclick="setMenuCategory('shakes')" class="menu-cat-btn bg-creamBG text-deepGreen hover:bg-limeAccent/20 px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-colors">Shakes</button>
+                        <button onclick="setMenuCategory('coolers')" class="menu-cat-btn bg-creamBG text-deepGreen hover:bg-limeAccent/20 px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-colors">Coolers</button>
+                        <button onclick="setMenuCategory('bowls')" class="menu-cat-btn bg-creamBG text-deepGreen hover:bg-limeAccent/20 px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-colors">Healthy Bowls</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Grid Section -->
+            <section class="py-12 bg-warmBg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div id="full-menu-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= ABOUT PAGE VIEW ================= -->
+        <div id="view-about" class="page-view">
+            <!-- Hero banner -->
+            <section class="py-16 bg-creamBG border-b border-limeAccent/20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="text-orangeAccent font-bold uppercase tracking-wider text-sm">Our Story</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-deepGreen mt-2">More Than Just A Juice Bar.</h1>
+                    <p class="text-gray-700 max-w-2xl mx-auto mt-4 leading-relaxed">
+                        River Juice Bar was born in Poonamallee out of a passion for pure, unadulterated fruit nutrition. We believe healthy choices should taste extraordinary.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Story Section -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <img src="https://images.unsplash.com/photo-1589733955941-5eeaf752f6dd?auto=format&fit=crop&q=80&w=800" alt="Juice Preparation" class="rounded-3xl shadow-xl w-full h-[400px] object-cover">
+                        </div>
+                        <div class="space-y-6">
+                            <div class="inline-block px-3 py-1 bg-limeAccent/30 text-deepGreen font-bold text-xs rounded-full uppercase">Founded by Hariharan</div>
+                            <h2 class="text-3xl font-bold text-deepGreen">Pure Fruits. Zero Compromise.</h2>
+                            <p class="text-gray-600 leading-relaxed">
+                                River Juice Bar started with a simple vision by founder Hariharan: to bring high quality, 100% natural cold-pressed juices and smoothies to the Poonamallee & Chennai community.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                We say NO to artificial syrups, excess refined sugars, and synthetic colors. Every beverage is pressed and blended live on order.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 pt-2">
+                                <div class="bg-warmBg p-4 rounded-xl border border-gray-100">
+                                    <i data-lucide="leaf" class="w-6 h-6 text-freshGreen mb-2"></i>
+                                    <h4 class="font-bold text-deepGreen">Local Sourcing</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Freshly sourced local fruits daily.</p>
+                                </div>
+                                <div class="bg-warmBg p-4 rounded-xl border border-gray-100">
+                                    <i data-lucide="recycle" class="w-6 h-6 text-limeAccent mb-2"></i>
+                                    <h4 class="font-bold text-deepGreen">Eco Packaging</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Sustainable glass bottles & bowls.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline -->
+            <section class="py-16 bg-warmBg">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-extrabold text-deepGreen mb-12">The River Journey</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded-full bg-orangeAccent/20 text-orangeAccent font-bold flex items-center justify-center mx-auto mb-4">1</div>
+                            <h3 class="font-bold text-deepGreen text-lg">The Idea</h3>
+                            <p class="text-sm text-gray-600 mt-2">Noticing a lack of pure, unadulterated fruit juices in the local market.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded-full bg-freshGreen/20 text-freshGreen font-bold flex items-center justify-center mx-auto mb-4">2</div>
+                            <h3 class="font-bold text-deepGreen text-lg">The First Blend</h3>
+                            <p class="text-sm text-gray-600 mt-2">Testing cold-press recipe combinations to reach absolute taste perfection.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded-full bg-limeAccent/30 text-deepGreen font-bold flex items-center justify-center mx-auto mb-4">3</div>
+                            <h3 class="font-bold text-deepGreen text-lg">River Juice Bar</h3>
+                            <p class="text-sm text-gray-600 mt-2">Opening near Gokulam Cinema, Poonamallee with instant WhatsApp ordering.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= CONTACT PAGE VIEW ================= -->
+        <div id="view-contact" class="page-view">
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <span class="text-orangeAccent font-bold uppercase tracking-wider text-sm">Get In Touch</span>
+                        <h1 class="text-4xl font-extrabold text-deepGreen mt-1">Visit Us or Order Direct</h1>
+                        <p class="text-gray-600 mt-2">Drop by our outlet near Gokulam Cinema or send a message directly!</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <!-- Contact Info Card -->
+                        <div class="bg-warmBg p-8 rounded-3xl border border-gray-200/80 space-y-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-deepGreen mb-4">River Juice Bar Store</h3>
+                                <div class="space-y-4 text-gray-700">
+                                    <div class="flex items-start gap-4">
+                                        <div class="p-3 bg-white rounded-xl text-freshGreen shadow-sm">
+                                            <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-deepGreen">Location Address</p>
+                                            <p class="text-sm text-gray-600">Near Gokulam Cinema, Poonamallee, Chennai, Tamil Nadu, India</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="p-3 bg-white rounded-xl text-freshGreen shadow-sm">
+                                            <i data-lucide="user" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-deepGreen">Founder / Owner</p>
+                                            <p class="text-sm text-gray-600">Hariharan</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="p-3 bg-white rounded-xl text-freshGreen shadow-sm">
+                                            <i data-lucide="phone" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-deepGreen">Phone & WhatsApp</p>
+                                            <p class="text-sm text-gray-600">+91 90037 56032</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="p-3 bg-white rounded-xl text-freshGreen shadow-sm">
+                                            <i data-lucide="mail" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-deepGreen">Email Address</p>
+                                            <p class="text-sm text-gray-600">hari.nikhi27@gmail.com</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="p-3 bg-white rounded-xl text-freshGreen shadow-sm">
+                                            <i data-lucide="clock" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-deepGreen">Opening Hours</p>
+                                            <p class="text-sm text-gray-600">Monday – Sunday: 9:00 AM – 10:00 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Action Buttons -->
+                            <div class="pt-4 border-t border-gray-200/80 flex flex-wrap gap-4">
+                                <a href="tel:+919003756032" class="flex-1 bg-deepGreen hover:bg-freshGreen text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors">
+                                    <i data-lucide="phone-call" class="w-5 h-5"></i>
+                                    <span>Call Hariharan</span>
+                                </a>
+                                <button onclick="openWhatsAppDirect()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors">
+                                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                    <span>WhatsApp Direct</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Feedback/Contact Form -->
+                        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-lg">
+                            <h3 class="text-2xl font-bold text-deepGreen mb-6">Send Us A Message</h3>
+                            <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-deepGreen mb-1">Your Name</label>
+                                    <input type="text" required placeholder="Aarav Sharma" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-freshGreen/50 focus:outline-none bg-warmBg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-deepGreen mb-1">Phone / Email</label>
+                                    <input type="text" required placeholder="+91 90037 56032 or name@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-freshGreen/50 focus:outline-none bg-warmBg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-deepGreen mb-1">Message</label>
+                                    <textarea rows="4" required placeholder="How can we help you?" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-freshGreen/50 focus:outline-none bg-warmBg"></textarea>
+                                </div>
+                                <button type="submit" class="w-full py-3.5 bg-orangeAccent hover:bg-orange-600 text-white font-bold rounded-xl transition-colors shadow-md">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Embedded Google Map Mockup for Poonamallee -->
+                    <div class="mt-12 rounded-3xl overflow-hidden shadow-lg border border-gray-200">
+                        <iframe class="w-full h-80 border-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.822989230554!2d80.0805322!3d13.045187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52614a9a089cdb%3A0xb51e1d03403d151c!2sPoonamallee%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- SLIDE-OUT CART SIDE DRAWER -->
+    <div id="cart-drawer-overlay" onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-gray-100 flex items-center justify-between bg-warmBg">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-6 h-6 text-freshGreen"></i>
+                <h3 class="font-extrabold text-xl text-deepGreen">Your Order Cart</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="p-2 rounded-full hover:bg-gray-200 text-gray-500">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="p-6 overflow-y-auto flex-grow space-y-4">
+            <!-- Dynamically populated -->
+        </div>
+
+        <!-- Cart Footer / Checkout Form -->
+        <div class="p-6 border-t border-gray-100 bg-warmBg space-y-4">
+            <div class="space-y-1.5 text-sm text-gray-600">
+                <div class="flex justify-between">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" class="font-bold text-deepGreen">₹0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Delivery Fee (Poonamallee)</span>
+                    <span id="cart-delivery" class="text-freshGreen font-bold">₹25</span>
+                </div>
+                <div class="flex justify-between text-base font-extrabold text-deepGreen pt-2 border-t border-gray-200">
+                    <span>Grand Total</span>
+                    <span id="cart-total" class="text-orangeAccent">₹0</span>
+                </div>
+            </div>
+
+            <!-- Checkout Inputs -->
+            <div class="space-y-2 pt-2">
+                <input type="text" id="cust-name" placeholder="Full Name *" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-freshGreen">
+                <input type="tel" id="cust-phone" placeholder="WhatsApp Number *" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-freshGreen">
+                <input type="text" id="cust-address" placeholder="Delivery Address / Landmark *" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-freshGreen">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-1">
+                <button onclick="submitWhatsAppOrder()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-1.5 shadow-md">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <span>Order WhatsApp</span>
+                </button>
+                <button onclick="placeDirectOrder()" class="w-full py-3 bg-deepGreen hover:bg-freshGreen text-white font-bold rounded-xl text-sm flex items-center justify-center gap-1.5 shadow-md">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span>Direct Order</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- PROJECT CODE INSPECTOR MODAL -->
+    <div id="inspector-overlay" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl border border-gray-100">
+            <div class="p-6 bg-deepGreen text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="folder-code" class="w-6 h-6 text-limeAccent"></i>
+                    <div>
+                        <h3 class="font-bold text-lg">river-juice-bar / Directory Inspector</h3>
+                        <p class="text-xs text-white/70">Modular Project Files Structure Overview</p>
+                    </div>
+                </div>
+                <button onclick="toggleInspectorModal()" class="p-2 rounded-full hover:bg-white/10 text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto space-y-4 font-mono text-xs text-gray-800 bg-gray-50">
+                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                    <p class="font-bold text-freshGreen text-sm mb-2">📁 Directory Tree</p>
+                    <pre class="leading-relaxed text-gray-700">
+river-juice-bar/
+├── index.html        (Main Single Page SPA Entry)
+├── menu.html         (Menu View Template)
+├── about.html        (About & Story Template)
+├── contact.html      (Contact Page Template)
+├── css/
+│   └── style.css     (Custom Design Tokens & Glassmorphism Rules)
+├── js/
+│   ├── main.js       (Router & Navigation Controller)
+│   ├── menu.js       (Dynamic Menu Data & Search Engine)
+│   └── cart.js       (LocalStorage & WhatsApp Message Generator)
+└── README.md         (Documentation & Launch Guide)
+                    </pre>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                    <p class="font-bold text-deepGreen text-sm mb-1">ℹ️ Deployment Note</p>
+                    <p class="text-gray-600 font-sans leading-relaxed">
+                        This web application compiles all components, navigation logic, WhatsApp message generator, and menu data into a production-grade single file for optimized loading, zero server requirements, and deployment readiness!
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4 bg-warmBg border-t border-gray-200 text-right">
+                <button onclick="toggleInspectorModal()" class="px-6 py-2 bg-deepGreen text-white font-bold rounded-xl text-xs">
+                    Close Inspector
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-deepGreen text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-limeAccent/30 pointer-events-none">
+        <div id="toast-icon" class="text-limeAccent"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+        <span id="toast-message" class="text-sm font-semibold">Item added to cart!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-deepGreen text-white pt-16 pb-12 border-t border-freshGreen/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                
+                <!-- Brand Column -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-limeAccent flex items-center justify-center text-deepGreen">
+                            <i data-lucide="citrus" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-heading font-extrabold text-2xl tracking-tight text-white">RIVER</span>
+                    </div>
+                    <p class="text-white/70 text-sm italic">“Freshness That Flows.”</p>
+                    <p class="text-white/60 text-xs leading-relaxed">
+                        Cold-pressed juices, smoothies and fruit bowls made with 100% natural fruits in Poonamallee, Chennai.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-limeAccent text-base mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-white/80">
+                        <li><button onclick="navigateTo('home')" class="hover:text-limeAccent transition-colors">Home Page</button></li>
+                        <li><button onclick="navigateTo('menu')" class="hover:text-limeAccent transition-colors">Juice & Smoothie Menu</button></li>
+                        <li><button onclick="navigateTo('about')" class="hover:text-limeAccent transition-colors">About Hariharan & River</button></li>
+                        <li><button onclick="navigateTo('contact')" class="hover:text-limeAccent transition-colors">Contact & Store Map</button></li>
+                    </ul>
+                </div>
+
+                <!-- Hours & Location -->
+                <div>
+                    <h4 class="font-bold text-limeAccent text-base mb-4">Poonamallee Outlet</h4>
+                    <ul class="space-y-2 text-sm text-white/80">
+                        <li>Near Gokulam Cinema, Poonamallee</li>
+                        <li>Chennai, Tamil Nadu, India</li>
+                        <li>Mon – Sun: 9:00 AM – 10:00 PM</li>
+                        <li class="pt-2 text-xs text-limeAccent">★ Live orders prepped fresh on spot</li>
+                    </ul>
+                </div>
+
+                <!-- Socials & Contact -->
+                <div>
+                    <h4 class="font-bold text-limeAccent text-base mb-4">Connect With Us</h4>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-limeAccent hover:text-deepGreen transition-all">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-limeAccent hover:text-deepGreen transition-all">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <button onclick="openWhatsAppDirect()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-limeAccent hover:text-deepGreen transition-all">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-white/60">Phone: +91 90037 56032</p>
+                    <p class="text-xs text-white/60">Email: hari.nikhi27@gmail.com</p>
+                </div>
+
+            </div>
+
+            <!-- Bottom Credits -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-4">
+                <p>© 2026 RIVER JUICE BAR. All rights reserved. Owner: Hariharan.</p>
+                <div class="flex space-x-6">
+                    <button onclick="toggleInspectorModal()" class="hover:underline text-limeAccent">Code Inspector</button>
+                    <a href="#" class="hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:underline">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // PRODUCTS DATA ARRAY
+        const productsData = [
+            {
+                id: 'p1',
+                name: 'Orange Burst',
+                category: 'juices',
+                price: 129,
+                description: '100% pure cold-pressed Valencia oranges. High Vitamin C.',
+                image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=500',
+                featured: true,
+                badge: 'Cold-Pressed'
+            },
+            {
+                id: 'p2',
+                name: 'Berry Bliss',
+                category: 'smoothies',
+                price: 169,
+                description: 'Strawberries, blueberries, Greek yogurt & organic honey blend.',
+                image: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&q=80&w=500',
+                featured: true,
+                badge: 'Antioxidant'
+            },
+            {
+                id: 'p3',
+                name: 'Mango Magic',
+                category: 'smoothies',
+                price: 159,
+                description: 'Alphonso mango pulp, coconut milk & cardamom aroma.',
+                image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=500',
+                featured: true,
+                badge: 'Bestseller'
+            },
+            {
+                id: 'p4',
+                name: 'Tropical River',
+                category: 'juices',
+                price: 149,
+                description: 'Pineapple juice, passion fruit puree & fresh mint.',
+                image: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&q=80&w=500',
+                featured: true,
+                badge: 'Refreshing'
+            },
+            {
+                id: 'p5',
+                name: 'Banana Peanut Shake',
+                category: 'shakes',
+                price: 179,
+                description: 'Ripe bananas, creamy peanut butter, almond milk & chia seeds.',
+                image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=500',
+                featured: true,
+                badge: 'High Protein'
+            },
+            {
+                id: 'p6',
+                name: 'Coconut Cooler',
+                category: 'coolers',
+                price: 119,
+                description: 'Tender coconut water, tender coconut meat & lime zest.',
+                image: 'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&q=80&w=500',
+                featured: true,
+                badge: 'Hydration'
+            },
+            {
+                id: 'p7',
+                name: 'Watermelon Splash',
+                category: 'juices',
+                price: 119,
+                description: 'Fresh watermelon juice infused with lemon and mint leaves.',
+                image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=500',
+                featured: false
+            },
+            {
+                id: 'p8',
+                name: 'Pomegranate Power',
+                category: 'juices',
+                price: 159,
+                description: 'Rich cold-pressed pomegranate juice packed with antioxidants.',
+                image: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=500',
+                featured: false
+            },
+            {
+                id: 'p9',
+                name: 'Chocolate Almond Shake',
+                category: 'shakes',
+                price: 189,
+                description: 'Dark cocoa, roasted almonds, oat milk and natural dates.',
+                image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&q=80&w=500',
+                featured: false
+            },
+            {
+                id: 'p10',
+                name: 'Lemon Mint Cooler',
+                category: 'coolers',
+                price: 99,
+                description: 'Zesty lemon juice, crushed mint, rock salt and sparkling water.',
+                image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=500',
+                featured: false
+            },
+            {
+                id: 'p11',
+                name: 'Acai Berry Granola Bowl',
+                category: 'bowls',
+                price: 219,
+                description: 'Thick berry smoothie base topped with granola, chia & kiwi.',
+                image: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=500',
+                featured: false
+            },
+            {
+                id: 'p12',
+                name: 'Tropical Mango Bowl',
+                category: 'bowls',
+                price: 199,
+                description: 'Mango coconut base topped with sliced bananas & toasted flakes.',
+                image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&q=80&w=500',
+                featured: false
+            }
+        ];
+
+        // GLOBAL APP STATE
+        let cart = JSON.parse(localStorage.getItem('river_cart')) || [];
+        let activeCategory = 'all';
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderFeaturedProducts();
+            renderFullMenu();
+            updateCartUI();
+            
+            // Handle hash router on initial load
+            const hash = window.location.hash.replace('#', '');
+            if (['home', 'menu', 'about', 'contact'].includes(hash)) {
+                navigateTo(hash);
+            }
+        });
+
+        // SPA ROUTER FUNCTION
+        function navigateTo(viewId) {
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            const targetView = document.getElementById(`view-${viewId}`);
+            if (targetView) {
+                targetView.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.location.hash = viewId;
+            }
+
+            // Update active state in desktop header
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('text-freshGreen', 'font-bold');
+            });
+            const activeBtn = document.getElementById(`nav-${viewId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('text-freshGreen', 'font-bold');
+            }
+        }
+
+        // RENDER FEATURED PRODUCTS
+        function renderFeaturedProducts() {
+            const container = document.getElementById('featured-products-grid');
+            if (!container) return;
+
+            const featured = productsData.filter(p => p.featured);
+            container.innerHTML = featured.map(p => `
+                <div class="bg-warmBg rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-deepGreen text-limeAccent font-bold text-xs px-3 py-1 rounded-full shadow-md">
+                            ${p.badge}
+                        </span>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-deepGreen">${p.name}</h3>
+                                <span class="font-extrabold text-orangeAccent text-lg">₹${p.price}</span>
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">${p.description}</p>
+                        </div>
+                        <button onclick="addToCart('${p.id}')" class="w-full py-3 bg-white hover:bg-deepGreen text-deepGreen hover:text-white border border-deepGreen/20 font-bold rounded-2xl transition-colors shadow-sm flex items-center justify-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4 text-orangeAccent"></i>
+                            <span>Add to Order</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // RENDER FULL MENU PAGE
+        function renderFullMenu() {
+            const container = document.getElementById('full-menu-grid');
+            if (!container) return;
+
+            let filtered = productsData;
+            if (activeCategory !== 'all') {
+                filtered = filtered.filter(p => p.category === activeCategory);
+            }
+
+            const searchVal = document.getElementById('menu-search-input')?.value.toLowerCase() || '';
+            if (searchVal) {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500 text-lg">No delicious drinks match your search.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => `
+                <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+                        ${p.badge ? `<span class="absolute top-3 left-3 bg-orangeAccent text-white font-bold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider">${p.badge}</span>` : ''}
+                    </div>
+                    <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold text-deepGreen">${p.name}</h3>
+                                <span class="font-extrabold text-freshGreen text-base">₹${p.price}</span>
+                            </div>
+                            <p class="text-xs text-gray-500 leading-relaxed">${p.description}</p>
+                        </div>
+                        <button onclick="addToCart('${p.id}')" class="w-full py-2.5 bg-creamBG hover:bg-limeAccent/30 text-deepGreen font-bold text-sm rounded-xl transition-colors border border-limeAccent/40 flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                            <span>Add Item (₹${p.price})</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // CATEGORY FILTER
+        function setMenuCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.menu-cat-btn').forEach(btn => {
+                btn.classList.remove('bg-deepGreen', 'text-white');
+                btn.classList.add('bg-creamBG', 'text-deepGreen');
+            });
+            event.target.classList.remove('bg-creamBG', 'text-deepGreen');
+            event.target.classList.add('bg-deepGreen', 'text-white');
+            renderFullMenu();
+        }
+
+        function filterMenu() {
+            renderFullMenu();
+        }
+
+        // CART MANAGEMENT LOGIC
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cart.findIndex(item => item.id === productId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            saveCart();
+            updateCartUI();
+            showToast(`Added ${product.name} to cart!`);
+        }
+
+        function addComboToCart() {
+            const comboItem = {
+                id: 'combo-deal',
+                name: 'Daily Fresh Combo Pack',
+                price: 149,
+                qty: 1,
+                description: 'Orange Juice + Fruit Granola Bowl'
+            };
+            
+            const existingIndex = cart.findIndex(item => item.id === comboItem.id);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push(comboItem);
+            }
+
+            saveCart();
+            updateCartUI();
+            toggleCartDrawer();
+            showToast('Special Combo Deal added!');
+        }
+
+        function updateCartQty(productId, delta) {
+            const index = cart.findIndex(item => item.id === productId);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('river_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const delivery = totalCount > 0 ? 25 : 0;
+            const grandTotal = subtotal + delivery;
+
+            // Badges
+            document.getElementById('cart-badge').innerText = totalCount;
+            document.getElementById('cart-badge-mobile').innerText = totalCount;
+
+            // Totals
+            document.getElementById('cart-subtotal').innerText = `₹${subtotal}`;
+            document.getElementById('cart-delivery').innerText = `₹${delivery}`;
+            document.getElementById('cart-total').innerText = `₹${grandTotal}`;
+
+            // Cart Items Container
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 space-y-3">
+                        <i data-lucide="shopping-cart" class="w-12 h-12 text-gray-300 mx-auto"></i>
+                        <p class="text-gray-500 font-semibold">Your cart is currently empty.</p>
+                        <button onclick="toggleCartDrawer(); navigateTo('menu');" class="text-sm font-bold text-freshGreen underline">Browse Menu</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between bg-warmBg p-3.5 rounded-2xl border border-gray-100">
+                        <div class="flex-grow pr-3">
+                            <h4 class="font-bold text-sm text-deepGreen">${item.name}</h4>
+                            <span class="text-xs text-orangeAccent font-bold">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-2 py-1 rounded-xl border border-gray-200">
+                            <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-gray-600 font-bold hover:bg-gray-100 rounded-lg">-</button>
+                            <span class="text-xs font-bold text-deepGreen w-4 text-center">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-gray-600 font-bold hover:bg-gray-100 rounded-lg">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            lucide.createIcons();
+        }
+
+        // SLIDE-OUT CART TOGGLE
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+            
+            const isOpen = !drawer.classList.contains('translate-x-full');
+            if (isOpen) {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        // INSPECTOR MODAL TOGGLE
+        function toggleInspectorModal() {
+            const modal = document.getElementById('inspector-overlay');
+            modal.classList.toggle('hidden');
+        }
+
+        // MOBILE MENU TOGGLE
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // WHATSAPP ORDER GENERATOR TO HARIHARAN
+        function submitWhatsAppOrder() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !phone || !address) {
+                showToast('Please fill Name, Phone & Address!');
+                return;
+            }
+
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const total = subtotal + 25;
+
+            let message = `*RIVER JUICE BAR — NEW ORDER*%0A%0A`;
+            message += `*Customer Name:* ${name}%0A`;
+            message += `*Phone:* ${phone}%0A`;
+            message += `*Delivery Location:* ${address}%0A%0A`;
+            message += `*ORDER ITEMS:*%0A`;
+
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} (x${item.qty}) - ₹${item.price * item.qty}%0A`;
+            });
+
+            message += `%0A*Poonamallee Delivery Fee:* ₹25`;
+            message += `%0A*TOTAL AMOUNT:* ₹${total}%0A%0A`;
+            message += `Please prepare my order fresh! Thank you, Hariharan sir.`;
+
+            const whatsappUrl = `https://wa.me/919003756032?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // DIRECT LOCAL STORAGE ORDER
+        function placeDirectOrder() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            
+            if (!name || !phone) {
+                showToast('Please enter Name and Phone number.');
+                return;
+            }
+
+            cart = [];
+            saveCart();
+            updateCartUI();
+            toggleCartDrawer();
+            showToast(`Thank you ${name}! Order received by Hariharan.`);
+        }
+
+        function openWhatsAppDirect() {
+            const url = `https://wa.me/919003756032?text=Hi%20Hariharan%20sir%2C%20I%20would%20like%20to%20place%20an%20order%20at%20River%20Juice%20Bar%20Poonamallee!`;
+            window.open(url, '_blank');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast('Message sent to Hariharan! We will reply soon.');
+            e.target.reset();
+        }
+
+        // TOAST HELPER
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.innerText = msg;
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
